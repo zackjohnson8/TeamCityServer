@@ -1,0 +1,22 @@
+version: "3"
+services:
+  server:
+    image: zackjohnson8/teamcity-server:latest
+    container_name: teamcity-server
+    ports:
+      - "8111:8111"
+    volumes:
+      - ./teamcity/datadir:/data/teamcity_server/datadir
+      - ./teamcity/logs:/opt/teamcity/logs
+    environment:
+      TEAMCITY_SERVER_MEM_OPTS: "-Xmx3g -XX:MaxPermSize=270m -XX:ReservedCodeCacheSize=450m"
+#  agent:
+#    image: jetbrains/teamcity-agent:latest
+#    depends_on:
+#      - server
+#    container_name: teamcity-agent
+#    volumes:
+#      - ./teamcity/agent_conf:/data/teamcity_agent/conf
+#    environment:
+#      SERVER_URL: "http://server:8111"
+#    tty: true
