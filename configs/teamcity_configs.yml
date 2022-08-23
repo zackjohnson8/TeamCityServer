@@ -1,0 +1,5 @@
+teamcity:
+  agent: "/teamcity/agent_conf"
+  data: "/teamcity/datadir"
+  logs: "/teamcity/logs"
+  home: "/teamcity"
