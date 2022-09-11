@@ -1,5 +1,10 @@
 teamcity:
-  agent: "/teamcity/agent_conf"
-  data: "/teamcity/datadir"
-  logs: "/teamcity/logs"
-  home: "/teamcity"
+  home_dir: "/home/locallinux/teamcity"
+  agent_folder: "agent"
+  data_folder: "data"
+  logs_folder: "logs"
+
+
+
+
+
