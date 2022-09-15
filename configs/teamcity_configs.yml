@@ -1,10 +1,8 @@
 teamcity:
   home_dir: "/home/locallinux/teamcity"
-  agent_folder: "agent"
-  data_folder: "data"
-  logs_folder: "logs"
-
-
-
-
-
+  server:
+    data_folder: "server/data"
+    logs_folder: "server/logs"
+  agent:
+    conf_folder: "agent/conf"
+    system_folder: "agent/system"
