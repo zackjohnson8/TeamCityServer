@@ -1,7 +1,12 @@
+import os
 import subprocess
-import logging.config
 
-logger = logging.getLogger(__name__)
+from helpers import logging_helper
+
+# /home/locallinux/PycharmProjects/TeamCityProject
+working_directory = os.path.dirname(os.path.realpath(__file__))
+
+logger = logging_helper.get_logger(__name__)
 
 
 def run_commands(commands: list, wait: bool = True):
@@ -14,3 +19,4 @@ def run_commands(commands: list, wait: bool = True):
         logger.error(stderr)
     else:
         logger.info(stdout)
+    pass

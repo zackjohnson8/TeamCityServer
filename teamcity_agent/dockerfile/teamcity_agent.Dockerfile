@@ -1,6 +1,7 @@
-ARG conf_dir="/data/teamcity_agent/conf"
-ARG system_dir="/data/teamcity_agent/system"
+ARG conf_dir="/home/locallinux/teamcity/agent/conf"
+ARG system_dir="/home/locallinux/teamcity/agent/system"
 
+# Get the latest teamcity-agent image from Docker Hub.
 FROM jetbrains/teamcity-agent:latest
 
 # Add the following environment variables:

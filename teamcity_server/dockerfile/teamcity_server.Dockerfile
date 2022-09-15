@@ -1,5 +1,5 @@
-ARG data_dir="~/teamcity/data"
-ARG logs_dir="~/teamcity/logs"
+ARG data_dir="/home/locallinux/teamcity/server/data"
+ARG logs_dir="/home/locallinux/teamcity/server/logs"
 
 # Grab the initial layer jetbrains/teamcity-server:latest and use it as the base image for the new image.
 FROM jetbrains/teamcity-server:latest
