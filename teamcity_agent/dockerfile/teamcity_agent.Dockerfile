@@ -1,11 +1,2 @@
-ARG conf_dir="/home/locallinux/teamcity/agent/conf"
-ARG system_dir="/home/locallinux/teamcity/agent/system"
-
-# Get the latest teamcity-agent image from Docker Hub.
+# Get the 2022.04.3 teamcity-agent image from Docker Hub.
 FROM jetbrains/teamcity-agent:latest
-
-# Add the following environment variables:
-ENV SERVER_URL=http://locallinux:8111
-
-# Add the following volumes:
-VOLUME ["$conf_dir:/data/teamcity_agent/conf", "$system_dir/data/teamcity_agent/system"]

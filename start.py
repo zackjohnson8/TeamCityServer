@@ -38,8 +38,9 @@ def run_teamcity_docker():
          'zackjohnson8/teamcity-server', '.']
     server_dockerfile_run_command = \
         ['docker', 'run', '-it', '-d', '--name', 'server',
-         '-e', 'TEAMCITY_SERVER_MEM_OPTS="-Xmx3g -XX:MaxPermSize=270m -XX:ReservedCodeCacheSize=450m"',
-         '-v', f'{teamcity_server_configs["data_folder"]:}'
+         '-e', 'TEAMCITY_SERVER_MEM_OPTS=-Xmx3g -XX:MaxPermSize=270m -XX:ReservedCodeCacheSize=450m',
+         '-v', f'{teamcity_server_configs["data_folder"]}:/data/teamcity_server/datadir',
+         '-v', f'{teamcity_server_configs["logs_folder"]}:/opt/teamcity/logs',
          '-p', '8111:8111',
          'zackjohnson8/teamcity-server']
     server_dockerfile_push_command = ['docker', 'push', 'zackjohnson8/teamcity-server']
@@ -56,7 +57,11 @@ def run_teamcity_docker():
                                       f'{working_directory}/teamcity_agent/dockerfile/teamcity_agent.Dockerfile',
                                       '-t',
                                       'zackjohnson8/teamcity-agent', '.']
-    agent_dockerfile_run_command = ['docker', 'run', '-it', '-d', '--name', 'agent', '--link', 'server',
+    agent_dockerfile_run_command = ['docker', 'run', '-it', '-d', '--name', 'agent',
+                                    '--link', 'server',
+                                    '-e', 'SERVER_URL=http://server:8111',
+                                    '-v', f'{teamcity_agent_configs["conf_folder"]}:/data/teamcity_agent/conf',
+                                    '-v', f'{teamcity_agent_configs["system_folder"]}:/data/teamcity_agent/system',
                                     'zackjohnson8/teamcity-agent']
     agent_dockerfile_push_command = ['docker', 'push', 'zackjohnson8/teamcity-agent']
 
