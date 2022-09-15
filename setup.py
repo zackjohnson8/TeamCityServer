@@ -2,7 +2,6 @@
     Description: Use this script to automate the setup process for a new teamcity server, agent, and database.
 """
 import os
-import subprocess
 import logging.config
 from helpers import yaml_helper, logging_helper
 
@@ -31,24 +30,6 @@ def main():
                         logs_dir=logs_directory,
                         agent_dir=agent_directory)
 
-    # Run Dockerfiles
-    server_dockerfile_commands = ['docker', 'build', '-f',
-                                  f'{working_directory}/dockerfiles/teamcity_server.Dockerfile', '-t',
-                                  'zackjohnson8/teamcity-server', '.']
-    popen = subprocess.Popen(server_dockerfile_commands, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-                             universal_newlines=True)
-    print(popen.communicate())
-    pass
-
-
-def logging_test():
-    logger.info('This is a test')
-    logger.debug('This is a test')
-    logger.warning('This is a test')
-    logger.error('This is a test')
-    logger.critical('This is a test')
-
 
 if __name__ == '__main__':
-    logging_test()
     main()
