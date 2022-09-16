@@ -15,4 +15,3 @@ def run_commands(commands: list, wait: bool = True):
         logger.error(stderr)
     else:
         logger.info(stdout)
-    pass

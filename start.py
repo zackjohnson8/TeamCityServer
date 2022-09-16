@@ -1,4 +1,3 @@
-
 import os
 
 from helpers import yaml_helper, logging_helper, path_helper, command_helper
@@ -43,7 +42,6 @@ def run_teamcity_docker():
     command_helper.run_commands(database_dockerfile_run_command)
     command_helper.run_commands(database_dockerfile_push_command)
 
-
     # Run Dockerfiles
     # Create commands for remove, building, running, and pushing docker images
     server_dockerfile_remove_command = ['docker', 'rm', '-f', 'server']
@@ -74,7 +72,8 @@ def run_teamcity_docker():
                                       f'{working_directory}/teamcity_agent/dockerfile/teamcity_agent.Dockerfile',
                                       '-t',
                                       'zackjohnson8/teamcity-agent', '.']
-    agent_dockerfile_run_command = ['docker', 'run', '-it', '-d', '--name', 'agent', '--restart=unless-stopped', '--network=teamcity-network',
+    agent_dockerfile_run_command = ['docker', 'run', '-it', '-d', '--name', 'agent', '--restart=unless-stopped',
+                                    '--network=teamcity-network',
                                     '-e', 'SERVER_URL=http://10.0.0.194:8111',
                                     '-v', f'{teamcity_agent_configs["conf_folder"]}:/data/teamcity_agent/conf',
                                     '-v', f'{teamcity_agent_configs["system_folder"]}:/data/teamcity_agent/system',
