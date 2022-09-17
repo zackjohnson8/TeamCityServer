@@ -22,6 +22,9 @@ def _setup_logging(config_path, default_level=DEFAULT_LEVEL):
         print('Config file not found, using Default logging')
 
 
+_setup_logging(config_path=f'{working_directory}/../configs/logging_configs.yml')
+
+
 def get_logger(name):
-    _setup_logging(config_path=f'{working_directory}/../configs/logging_configs.yml')
+    # _setup_logging(config_path=f'{working_directory}/../configs/logging_configs.yml')
     return logging.getLogger(name)

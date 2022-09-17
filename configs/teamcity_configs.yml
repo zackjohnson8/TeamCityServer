@@ -6,3 +6,5 @@ teamcity:
   agent:
     conf_folder: "agent/conf"
     system_folder: "agent/system"
+  database:
+    data_folder: "database/data"

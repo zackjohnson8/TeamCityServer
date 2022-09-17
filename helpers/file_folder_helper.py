@@ -1,7 +1,8 @@
-import logging
 import os
 
-logger = logging.getLogger(__name__)
+from helpers import logging_helper
+
+logger = logging_helper.get_logger(__name__)
 
 
 def create_folder_if_not_exists(folder_path, exist_ok=True):
