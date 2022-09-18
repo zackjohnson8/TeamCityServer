@@ -1,0 +1,56 @@
+version: "3.9"
+
+services:
+  server:
+    image: zackjohnson8/teamcity-server:latest
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: ../teamcity_server/dockerfile/teamcity_server.Dockerfile
+    environment:
+      - TEAMCITY_SERVER_MEM_OPTS=-Xmx3g -XX:MaxPermSize=270m -XX:ReservedCodeCacheSize=450m
+    volumes:
+      - /home/locallinux/teamcity/server/data:/data/teamcity_server/datadir
+      - /home/locallinux/teamcity/server/logs:/opt/teamcity/logs
+    ports:
+      - '8111:8111'
+    networks:
+      - teamcity-network
+
+  postgres:
+    image: zackjohnson8/teamcity-database:latest
+    build:
+      context: .
+      dockerfile: ../teamcity_database/dockerfile/teamcity_database.Dockerfile
+    environment:
+      - POSTGRES_PASSWORD=mysecretpassword
+      - POSTGRES_USER=teamcity
+      - POSTGRES_DB=teamcity
+    volumes:
+      - /home/locallinux/teamcity/database/data:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+    networks:
+      - teamcity-network
+    depends_on:
+      - server
+
+  agent1:
+    image: zackjohnson8/teamcity-agent:latest
+    restart: unless-stopped
+    environment:
+      - SERVER_URL=http://server:8111
+    volumes:
+      - /home/locallinux/teamcity/agent/conf:/data/teamcity_agent/conf
+      - /home/locallinux/teamcity/agent/system:/data/teamcity_agent/system
+    build:
+      context: .
+      dockerfile: ../teamcity_agent/dockerfile/teamcity_agent.Dockerfile
+    networks:
+      - teamcity-network
+    depends_on:
+      - server
+
+
+networks:
+  teamcity-network:
