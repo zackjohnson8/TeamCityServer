@@ -57,12 +57,15 @@ def run_teamcity_docker(docker_hub_user: str):
     os.environ['DATABASE_DATA_VOLUME_DIR'] = os.path.abspath(teamcity_configs["teamcity"]["database"]["data_folder"])
 
     # Docker stack deploy and status commands
-    docker_stack_deploy_command = ['docker', 'stack', 'deploy', '-c', 'docker_compose/docker-compose-linux.yml',
+    docker_stack_deploy_command = ['docker', 'stack', 'deploy', '--prune', '-c',
+                                   'docker_compose/docker-compose-linux.yml',
                                    'local-teamcity']
     docker_stack_status_command = ['docker', 'stack', 'services', 'local-teamcity']
+    docker_stack_network_command = ['docker', 'network', 'inspect', 'local-teamcity_teamcity-network']
     # Deploy and check the status of the docker stack
     command_helper.run_commands(docker_stack_deploy_command)
     command_helper.run_commands(docker_stack_status_command)
+    command_helper.run_commands(docker_stack_network_command)
 
 
 def main(argv):

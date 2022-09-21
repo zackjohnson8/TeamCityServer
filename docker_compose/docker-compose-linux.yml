@@ -1,5 +1,12 @@
 version: "3.9"
 
+networks:
+  teamcity-network:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.20.0.0/24
+
 services:
   server:
     image: ${DOCKER_HUB_USER}/teamcity-server:latest
@@ -15,7 +22,8 @@ services:
     ports:
       - '8111:8111'
     networks:
-      - teamcity-network
+      teamcity-network:
+        ipv4_address: 172.20.0.6
 
   postgres:
     image: ${DOCKER_HUB_USER}/teamcity-database:latest
@@ -31,9 +39,8 @@ services:
     ports:
       - '5432:5432'
     networks:
-      - teamcity-network
-    depends_on:
-      - server
+      teamcity-network:
+        ipv4_address: 172.20.0.8
 
   agent1:
     image: ${DOCKER_HUB_USER}/teamcity-agent:latest
@@ -47,10 +54,5 @@ services:
       context: .
       dockerfile: ../teamcity_agent/dockerfile/teamcity_agent.Dockerfile
     networks:
-      - teamcity-network
-    depends_on:
-      - server
-
-
-networks:
-  teamcity-network:
+      teamcity-network:
+        ipv4_address: 172.20.0.3
