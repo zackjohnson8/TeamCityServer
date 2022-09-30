@@ -1,6 +1,6 @@
 import argparse
-from models.script_model import ScriptModel
-from models.types.script_type import ScriptType
+from src.models.script_model import ScriptModel
+from src.models.types.script_type import ScriptType
 
 
 class ArgumentHandler(argparse.ArgumentParser):

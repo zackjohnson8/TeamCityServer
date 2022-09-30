@@ -1,4 +1,4 @@
-from models.types.script_type import ScriptType
+from src.models.types.script_type import ScriptType
 
 
 class ScriptModel:
