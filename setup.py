@@ -2,9 +2,10 @@
     Description: Use this script to automate the setup process for a new teamcity server, agent, and database.
 """
 import os
-from helpers import yaml_helper, logging_helper, file_folder_helper
+from src.helpers import file_folder_helper, yaml_helper
+from src.extends import logger
 
-logger = logging_helper.get_logger(__name__)
+logging = logger.get_logger(__name__)
 
 working_directory = os.path.dirname(os.path.realpath(__file__))
 
@@ -22,5 +23,5 @@ def main():
 
 
 if __name__ == '__main__':
-    logger.info('Starting setup.py')
+    logging.info('Starting setup.py')
     main()

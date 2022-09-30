@@ -1,20 +1,19 @@
 import os
 import sys
 
-from helpers import logging_helper, command_helper, yaml_helper
-from handlers.argument_handler import ArgumentHandler
-from models import script_model
+from src.helpers import yaml_helper, command_helper
+from src.extends import logger
+from src.handlers.argument_handler import ArgumentHandler
+from src.models import script_model
 
-logger = logging_helper.get_logger(__name__)
-
-working_directory = os.path.dirname(os.path.realpath(__file__))
+logging = logger.get_logger(__name__)
 
 
 def run_teamcity_docker(docker_hub_user: str):
     # Server build and push commands
     server_dockerfile_build_command = \
         ['docker', 'build', '-f',
-         f'{working_directory}/teamcity_server/dockerfile/teamcity_server.Dockerfile',
+         'docker/teamcity_server/dockerfile/teamcity_server.Dockerfile',
          '-t',
          f'{docker_hub_user}/teamcity-server', '.']
     server_dockerfile_push_command = \
@@ -26,7 +25,7 @@ def run_teamcity_docker(docker_hub_user: str):
     # Agent build and push commands
     agent_dockerfile_build_command = \
         ['docker', 'build', '-f',
-         f'{working_directory}/teamcity_agent/dockerfile/teamcity_agent.Dockerfile',
+         'docker/teamcity_agent/dockerfile/teamcity_agent.Dockerfile',
          '-t',
          f'{docker_hub_user}/teamcity-agent', '.']
     agent_dockerfile_push_command = \
@@ -38,7 +37,7 @@ def run_teamcity_docker(docker_hub_user: str):
     # Database build and push commands
     database_dockerfile_build_command = \
         ['docker', 'build', '-f',
-         f'{working_directory}/teamcity_database/dockerfile/teamcity_database.Dockerfile',
+         'docker/teamcity_database/dockerfile/teamcity_database.Dockerfile',
          '-t',
          f'{docker_hub_user}/teamcity-database', '.']
     database_dockerfile_push_command = \
@@ -48,7 +47,7 @@ def run_teamcity_docker(docker_hub_user: str):
     command_helper.run_commands(database_dockerfile_push_command)
 
     # Set environment variables for the docker-compose file
-    teamcity_configs = yaml_helper.read_file(f'{working_directory}/configs', 'teamcity_configs.yml')
+    teamcity_configs = yaml_helper.read_file('configs', 'teamcity_configs.yml')
     os.environ['DOCKER_HUB_USER'] = docker_hub_user
     os.environ['SERVER_DATA_VOLUME_DIR'] = os.path.abspath(teamcity_configs["teamcity"]["server"]["data_folder"])
     os.environ['SERVER_LOGS_VOLUME_DIR'] = os.path.abspath(teamcity_configs["teamcity"]["server"]["logs_folder"])
@@ -58,7 +57,7 @@ def run_teamcity_docker(docker_hub_user: str):
 
     # Docker stack deploy and status commands
     docker_stack_deploy_command = ['docker', 'stack', 'deploy', '--prune', '-c',
-                                   'docker_compose/docker-compose-linux.yml',
+                                   'docker/docker_compose/docker-compose-linux.yml',
                                    'local-teamcity']
     docker_stack_status_command = ['docker', 'stack', 'services', 'local-teamcity']
     docker_stack_network_command = ['docker', 'network', 'inspect', 'local-teamcity_teamcity-network']
@@ -76,5 +75,5 @@ def main(argv):
 
 
 if __name__ == '__main__':
-    logger.info('Starting start.py')
+    logging.info('Starting start.py')
     main(sys.argv[1:])

@@ -1,8 +1,8 @@
 import subprocess
 
-from helpers import logging_helper
+from src.extends import logger
 
-logger = logging_helper.get_logger(__name__)
+logging = logger.get_logger(__name__)
 
 
 def run_commands(commands: list, wait: bool = True):
@@ -12,6 +12,6 @@ def run_commands(commands: list, wait: bool = True):
         popen.wait()
     stdout, stderr = popen.communicate()
     if stderr:
-        logger.error(stderr)
+        logging.error(stderr)
     else:
-        logger.info(stdout)
+        logging.info(stdout)

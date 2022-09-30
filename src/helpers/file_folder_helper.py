@@ -1,8 +1,8 @@
 import os
 
-from helpers import logging_helper
+from src.extends import logger
 
-logger = logging_helper.get_logger(__name__)
+logging = logger.get_logger(__name__)
 
 
 def create_directory(folder_path, exist_ok=True):
@@ -11,9 +11,9 @@ def create_directory(folder_path, exist_ok=True):
         # wait for the folder to be created
         while not os.path.exists(folder_path):
             pass
-        logger.info(f'Created folder: {folder_path}')
+        logging.info(f'Created folder: {folder_path}')
     else:
-        logger.info(f'Folder already exists: {folder_path}')
+        logging.info(f'Folder already exists: {folder_path}')
 
 
 def create_directories(directories: list):
@@ -24,6 +24,6 @@ def create_directories(directories: list):
 def create_file_if_not_exists(file_path):
     if not os.path.exists(file_path):
         open(file_path, 'a').close()
-        logger.info(f'Created file: {file_path}')
+        logging.info(f'Created file: {file_path}')
     else:
-        logger.info(f'File already exists: {file_path}')
+        logging.info(f'File already exists: {file_path}')
