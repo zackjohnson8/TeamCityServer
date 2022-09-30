@@ -1,9 +1,8 @@
-# TeamCityServer
-TeamCityServer is a project for creating a dockerized Teamcity server, agents, and external database. Speeding up and reducing the complexity of having CI/CD for the home user.
+## About The Project
+TeamCityServer is a project for creating a dockerized Teamcity server, agents, and external database. Speeding up and 
+reducing the complexity of having CI/CD for the home user.
 
-This project is in it's early stages of development. So far, it has only been tested and used on a local linux machine.
-***
-## Startup
+## Getting Started
 As of currently this is a work around solution for static IP addresses. From what I can find, docker swarm does not have
  an easy way to assign static IP addresses to containers. This will be updated in the future.
 * Run the 'setup.py' python script to create the necessary files and folders for the projects.
@@ -37,4 +36,28 @@ docker network inspect local-teamcity_teamcity-network
 * Accept the license agreement
 * Create an admin account
 * You should now be able to login to the TeamCity server
-***
+
+## Usage
+TODO: Add usage instructions
+
+## Roadmap
+- [x] Create dockerfiles for TeamCity server, agents, and postgres
+- [x] Create docker-compose file for TeamCity server, agents, and postgres
+- [ ] Create more scripts to make the setup and removal of the project easier
+
+## Contributing
+Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are greatly appreciated.
+
+If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement". Don't forget to give the project a star! Thanks again!
+
+    Fork the Project
+    Create your Feature Branch (git checkout -b [name_of_your_new_branch])
+    Commit your Changes (git commit -m 'Add some awesome feature')
+    Push to the Branch (git push origin [name_of_your_new_branch])
+    Open a Pull Request
+
+## License
+Distributed under the MIT License. See the `LICENSE` file for more information.
+
+## Contact
+Zachary Johnson - @zackjohnson8 - zackjohnson8@gmail.com
